@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils import timezone
 from django.utils.html import format_html
 from .models import BlogCategory, BlogTag, BlogPost, BlogComment, BlogView
 
@@ -42,10 +43,11 @@ class BlogViewInline(admin.TabularInline):
 class BlogPostAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'status', 'category', 'published_at', 'is_featured', 'view_count')
     list_filter = ('status', 'category', 'is_featured', 'published_at')
-    search_fields = ('title', 'content', 'author__username')
+    search_fields = ('title', 'author__username')
+    search_help_text = "برای جست و جو از عنوان و فیلد یوزرنیم استفاده کنید"
     prepopulated_fields = {'slug': ('title',)}
     readonly_fields = ('created_at', 'updated_at', 'published_at', 'view_count', 'cover_image_preview')
-    raw_id_fields = ('author',)
+    raw_id_fields = ('author', "cover_image", "category")
     filter_horizontal = ('tags',)
     inlines = [BlogCommentInline, BlogViewInline]
     actions = ['publish_posts', 'unpublish_posts', 'feature_posts', 'unfeature_posts']

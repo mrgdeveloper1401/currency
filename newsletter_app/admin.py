@@ -11,6 +11,7 @@ class NewsletterCategoryAdmin(admin.ModelAdmin):
     # prepopulated_fields = {'slug': ('name',)}
     list_per_page = 20
 
+
 @admin.register(NewsletterSubscription)
 class NewsletterSubscriptionAdmin(admin.ModelAdmin):
     list_display = ('user', 'category', 'is_active', 'subscribed_at')
@@ -19,6 +20,7 @@ class NewsletterSubscriptionAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
     readonly_fields = ('subscribed_at', 'unsubscribed_at')
     list_per_page = 20
+
 
 class NewsletterRecipientInline(admin.TabularInline):
     model = NewsletterRecipient
@@ -33,7 +35,7 @@ class NewsletterAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'status', 'scheduled_time', 'sent_time', 'created_by')
     list_filter = ('status', 'category')
     search_fields = ('title', 'content')
-    raw_id_fields = ('created_by',)
+    raw_id_fields = ('created_by', "category")
     readonly_fields = ('created_at', 'updated_at', 'sent_time')
     inlines = [NewsletterRecipientInline]
     actions = ('send_newsletter',)

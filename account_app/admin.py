@@ -10,6 +10,8 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ('username', 'phone', 'email')
     ordering = ('-created_at',)
     list_per_page = 20
+    readonly_fields = ('created_at', 'updated_at')
+    search_help_text = " برای جست و جو میتوانید از یوزرنیم یا شماره تلفن یا ایمیل استفاده کنید"
 
     fieldsets = (
         (None, {'fields': ('username', 'phone', 'password')}),
